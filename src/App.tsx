@@ -83,6 +83,7 @@ function App() {
             <ProductGrid
               products={paginatedProducts}
               onProductClick={setSelectedProduct}
+              highlightQuery={searchQuery}
             />
             <Pagination
               currentPage={currentPage}
