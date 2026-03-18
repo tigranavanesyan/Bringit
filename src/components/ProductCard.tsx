@@ -1,17 +1,22 @@
+import { memo } from "react";
 import type { Product } from "../types/product";
 import { HighlightedText } from "./HighlightedText";
 
 interface ProductCardProps {
   product: Product;
-  onClick: () => void;
+  onProductClick: (product: Product) => void;
   highlightQuery?: string;
 }
 
-export function ProductCard({ product, onClick, highlightQuery }: ProductCardProps) {
+export const ProductCard = memo(function ProductCard({
+  product,
+  onProductClick,
+  highlightQuery,
+}: ProductCardProps) {
   return (
     <button
       type="button"
-      onClick={onClick}
+      onClick={() => onProductClick(product)}
       className="w-full flex flex-col justify-between text-left rounded-lg border border-(--color-border) bg-(--color-bg-card) overflow-hidden shadow-(--shadow-sm) hover:shadow-(--shadow-md) transition-shadow focus:outline-none focus:ring-2 focus:ring-(--color-primary)"
     >
       <div className="aspect-square w-full overflow-hidden bg-(--color-border)">
@@ -43,4 +48,4 @@ export function ProductCard({ product, onClick, highlightQuery }: ProductCardPro
       </div>
     </button>
   );
-}
+});

@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 interface HighlightedTextProps {
   text: string;
   highlight: string;
@@ -10,13 +12,17 @@ function escapeRegex(s: string): string {
 
 export function HighlightedText({ text, highlight, className }: HighlightedTextProps) {
   const trimmed = highlight.trim();
+  const { parts, lowerHighlight } = useMemo(() => {
+    if (!trimmed) {
+      return { parts: [text], lowerHighlight: "" };
+    }
+    const regex = new RegExp(`(${escapeRegex(trimmed)})`, "gi");
+    return { parts: text.split(regex), lowerHighlight: trimmed.toLowerCase() };
+  }, [text, trimmed]);
+
   if (!trimmed) {
     return <span className={className}>{text}</span>;
   }
-
-  const regex = new RegExp(`(${escapeRegex(trimmed)})`, "gi");
-  const parts = text.split(regex);
-  const lowerHighlight = trimmed.toLowerCase();
 
   return (
     <span className={className}>

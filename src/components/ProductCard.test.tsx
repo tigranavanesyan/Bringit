@@ -14,7 +14,7 @@ const mockProduct: Product = {
 
 describe("ProductCard", () => {
   it("renders product image, title, price, and category", () => {
-    render(<ProductCard product={mockProduct} onClick={() => {}} />);
+    render(<ProductCard product={mockProduct} onProductClick={() => {}} />);
 
     expect(screen.getByRole("img", { name: "Test Product" })).toBeInTheDocument();
     expect(screen.getByText("Test Product")).toBeInTheDocument();
@@ -22,12 +22,13 @@ describe("ProductCard", () => {
     expect(screen.getByText("electronics")).toBeInTheDocument();
   });
 
-  it("calls onClick when clicked", () => {
-    const onClick = vi.fn();
-    render(<ProductCard product={mockProduct} onClick={onClick} />);
+  it("calls onProductClick with product when clicked", () => {
+    const onProductClick = vi.fn();
+    render(<ProductCard product={mockProduct} onProductClick={onProductClick} />);
 
     fireEvent.click(screen.getByRole("button"));
 
-    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onProductClick).toHaveBeenCalledTimes(1);
+    expect(onProductClick).toHaveBeenCalledWith(mockProduct);
   });
 });

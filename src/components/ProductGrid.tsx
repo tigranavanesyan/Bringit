@@ -7,14 +7,18 @@ interface ProductGridProps {
   highlightQuery?: string;
 }
 
-export function ProductGrid({ products, onProductClick, highlightQuery }: ProductGridProps) {
+export function ProductGrid({
+  products,
+  onProductClick,
+  highlightQuery,
+}: ProductGridProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {products.map((product) => (
         <ProductCard
           key={product.id}
           product={product}
-          onClick={() => onProductClick(product)}
+          onProductClick={onProductClick}
           highlightQuery={highlightQuery}
         />
       ))}
